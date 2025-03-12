@@ -1,6 +1,7 @@
 import Footer from "./components/Footer";
 import LeftSide from "./components/LeftSide";
-import MainComponent from "./components/MainComponent";
+import MainComponent from "./components/MainComponent/MainComponent";
+
 import Navigation from "./components/Navigation";
 
 export default function Home() {
