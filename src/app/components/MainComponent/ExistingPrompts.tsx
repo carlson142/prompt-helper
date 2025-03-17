@@ -5,6 +5,7 @@ import React, { useState } from "react";
 
 import { FaRegCopy } from "react-icons/fa";
 import { IoMdDoneAll } from "react-icons/io";
+import { usePopupStore } from "@/app/store/store";
 
 type DataProps = {
   data: tempDataTypes;
@@ -12,11 +13,11 @@ type DataProps = {
 
 export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
   const [copied, setCopied] = useState(false);
+  const { openPopup } = usePopupStore();
 
   {
     /* Копіювання промпту в буфір обміну */
   }
-
   const handleCopyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(data.prompt);
@@ -30,7 +31,10 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
   };
 
   return (
-    <div className=" h-48 border-2 border-dotted border-[#576574] rounded-2xl p-2 cursor-pointer flex flex-col hover:-translate-y-1 transition-all">
+    <div
+      className="h-48 border-2 border-dotted border-[#576574] rounded-2xl p-2 cursor-pointer flex flex-col hover:-translate-y-1 transition-all"
+      onClick={() => openPopup(data)}
+    >
       <div className="flex items-center justify-between">
         {/* Назва промпту */}
         <div className="font-bold">{data.title}</div>
@@ -60,6 +64,7 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
       {/* Prompt */}
       <div className="flex items-center flex-1 text-justify">
         <span className="">
+          {/* Обмеження тексту по довжині */}
           {data.prompt.length > 100
             ? data.prompt.slice(0, 200) + "..."
             : data.prompt}
