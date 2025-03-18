@@ -63,7 +63,7 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
 
       {/* Prompt */}
       <div className="flex items-center flex-1 text-justify">
-        <span className="">
+        <span className="text-gray-300 text-[14px]">
           {/* Обмеження тексту по довжині */}
           {data.prompt.length > 100
             ? data.prompt.slice(0, 200) + "..."
