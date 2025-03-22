@@ -6,3 +6,35 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+
+  /* Це тут, бо кольори з tailwind.config.ts не працюють...*/
+
+  /* PRIMARY COLORS */
+  --primary-green: #2ed573;
+  --primary-fadeGreen: #2ed57333;
+
+  /* SECONDARY COLORS */
+  --secondary-blue: #192a56;
+  --secondary-red: #eb3b5a;
+
+  /* OTHER COLORS */
+  --dotted-border: #576574;
+  --flag-blue: #0057b7;
+  --flag-yellow: #ffdd00;
+  --main-heading-green: #78e08f;
+  --main-heading-teal: #38ada9;
+}
+
+.dark {
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}

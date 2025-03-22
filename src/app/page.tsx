@@ -7,8 +7,6 @@ import Navigation from "./components/Navigation";
 import { usePopupStore } from "./store/store";
 
 export default function Home() {
-  // const { openPopup, isOpen } = usePopupStore();
-
   return (
     <div className="flex flex-col w-screen h-screen p-5 relative">
       <Navigation />

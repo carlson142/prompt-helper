@@ -32,7 +32,7 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
 
   return (
     <div
-      className="h-48 border-2 border-dotted border-[#576574] rounded-2xl p-2 cursor-pointer flex flex-col hover:-translate-y-1 transition-all"
+      className="h-48 border-2 border-dotted border-[var(--dotted-border)]  rounded-2xl p-2 cursor-pointer flex flex-col hover:-translate-y-1 transition-all"
       onClick={() => openPopup(data)}
     >
       <div className="flex items-center justify-between">
@@ -47,7 +47,7 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
               {/* Іконка */}
               {/* TODO: Додати копіювання промпту до буфіру обміну при кліку на іконку! */}
               <FaRegCopy
-                className="hover:text-[#2ed573] transition-all"
+                className="hover:text-[var(--primary-green)] transition-all"
                 onClick={handleCopyToClipboard}
               />
               {/* Підказка */}
@@ -57,13 +57,13 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
             </div>
           </div>
         ) : (
-          <IoMdDoneAll className="text-[#2ed573]" />
+          <IoMdDoneAll className="text-[var(--primary-green)]" />
         )}
       </div>
 
       {/* Prompt */}
       <div className="flex items-center flex-1 text-justify">
-        <span className="text-gray-300 text-[14px]">
+        <span className="text-[14px]">
           {/* Обмеження тексту по довжині */}
           {data.prompt.length > 100
             ? data.prompt.slice(0, 200) + "..."
@@ -73,7 +73,7 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
 
       {/* Автор промпту */}
       <div className="self-end">
-        <span className="text-[#2ed573] text-[12px] p-1 bg-[#2ed573]/20 rounded-2xl">
+        <span className="text-[var(--primary-green)] text-[12px] p-1 bg-[var(--primary-fadeGreen)] rounded-2xl">
           @{data.contributed}
         </span>
       </div>
