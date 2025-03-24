@@ -48,7 +48,13 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
               {/* TODO: Додати копіювання промпту до буфіру обміну при кліку на іконку! */}
               <FaRegCopy
                 className="hover:text-[var(--primary-green)] transition-all"
-                onClick={handleCopyToClipboard}
+                onClick={(e) => {
+                  handleCopyToClipboard();
+                  {
+                    /* Щоб попап не відкривався плі кліку на іконку копіювання */
+                  }
+                  e.stopPropagation();
+                }}
               />
               {/* Підказка */}
               <span className="absolute px-2 py-1 mb-2 text-sm text-white transition-opacity duration-300 -translate-x-1/2 bg-gray-800 rounded opacity-0 left-1/2 bottom-full w-max group-hover:opacity-100">
