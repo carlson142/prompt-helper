@@ -4,7 +4,6 @@ import MainComponent from "./components/MainComponent/MainComponent";
 import { PromptPopup } from "./components/MainComponent/PromptPopup";
 
 import Navigation from "./components/Navigation";
-import { usePopupStore } from "./store/store";
 
 export default function Home() {
   return (
