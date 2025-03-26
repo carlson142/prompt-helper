@@ -71,9 +71,24 @@ export const useGetAllProps = create<PromptState>()((set) => ({
   prompts: [],
   fetchPrompts: async () => {
     try {
+      // 1. Перевіряємо, чи є промпти в localstorage
+      const promptInLocalStorage = localStorage.getItem("prompts");
+
+      // 2. Якщо є - беремо звідти
+      if (promptInLocalStorage) {
+        set({ prompts: JSON.parse(promptInLocalStorage) });
+        return;
+      }
+
+      // 3. Якщо немає - беремо з БД
       const response = await fetch("/api/prompts");
       const data = await response.json();
+
+      // 4. Зберігаємо глобально
       set({ prompts: data });
+
+      // 5. Зберігаємо в localstorage
+      localStorage.setItem("prompts", JSON.stringify(data));
     } catch (error) {
       console.error("Помилка завантаження промптів", error);
     }
