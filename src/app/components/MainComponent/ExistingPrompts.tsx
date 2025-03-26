@@ -1,6 +1,6 @@
 "use client";
 
-import { tempDataTypes } from "@/app/helpers/data";
+import { DataTypes } from "@/app/helpers/data";
 import React, { useState } from "react";
 
 import { FaRegCopy } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { IoMdDoneAll } from "react-icons/io";
 import { usePopupStore } from "@/app/store/store";
 
 type DataProps = {
-  data: tempDataTypes;
+  data: DataTypes;
 };
 
 export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {

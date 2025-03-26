@@ -6,6 +6,13 @@ import { prisma } from "../../../../prisma/seed";
 }
 
 export async function GET() {
-  const allPrompts = await prisma.prompt.findMany();
-  return NextResponse.json(allPrompts);
+  try {
+    const allPrompts = await prisma.prompt.findMany();
+    return NextResponse.json(allPrompts);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Помилка отримання промптів" },
+      { status: 500 }
+    );
+  }
 }

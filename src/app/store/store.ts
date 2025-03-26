@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { tempDataTypes } from "../helpers/data";
+import { DataTypes } from "../helpers/data";
 
 {
   /* POPUP */
@@ -7,8 +7,8 @@ import { tempDataTypes } from "../helpers/data";
 
 interface PopupState {
   isOpen: boolean;
-  popupData: tempDataTypes | null;
-  openPopup: (data: tempDataTypes) => void;
+  popupData: DataTypes | null;
+  openPopup: (data: DataTypes) => void;
   closePopup: () => void;
 }
 
@@ -41,3 +41,41 @@ export const useNavigationCategories = create<NavigationCategoriesState>()(
     setActiveCategory: (category) => set({ activeCategory: category }),
   })
 );
+
+{
+  /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+}
+{
+  /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+}
+
+{
+  /* ЗБЕРІГАННЯ ВСІХ ПРОМПТІВ З БД */
+}
+
+interface Propmpt {
+  id: string;
+  title: string;
+  prompt: string;
+  contributed: string;
+  language: string;
+  category: string;
+}
+
+interface PromptState {
+  prompts: Propmpt[];
+  fetchPrompts: () => Promise<void>;
+}
+
+export const useGetAllProps = create<PromptState>()((set) => ({
+  prompts: [],
+  fetchPrompts: async () => {
+    try {
+      const response = await fetch("/api/prompts");
+      const data = await response.json();
+      set({ prompts: data });
+    } catch (error) {
+      console.error("Помилка завантаження промптів", error);
+    }
+  },
+}));

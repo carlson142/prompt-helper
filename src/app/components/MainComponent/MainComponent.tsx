@@ -1,10 +1,16 @@
-import AddNewPrompt from "./AddNewPrompt";
-import { tempData } from "@/app/helpers/data";
-import { ExistingPrompts } from "./ExistingPrompts";
-import { prisma } from "../../../../prisma/seed";
+"use client";
 
-export default async function MainComponent() {
-  const allPrompts = await prisma.prompt.findMany();
+import AddNewPrompt from "./AddNewPrompt";
+import { ExistingPrompts } from "./ExistingPrompts";
+import { useEffect } from "react";
+import { useGetAllProps } from "@/app/store/store";
+
+export default function MainComponent() {
+  const { prompts, fetchPrompts } = useGetAllProps();
+
+  useEffect(() => {
+    fetchPrompts();
+  }, []);
 
   return (
     /* FIXME: ВИСОТА!!!! якась хуйня!!! */
@@ -12,7 +18,9 @@ export default async function MainComponent() {
       {/* Додати новий промпт */}
       <AddNewPrompt />
 
-      {allPrompts.map((el) => {
+      {/* FIXME: Додати loader, поки воно завантажує промпти з БД */}
+
+      {prompts.map((el) => {
         return <ExistingPrompts key={el.id} data={el} />;
       })}
     </div>
