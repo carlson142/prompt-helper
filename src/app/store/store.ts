@@ -64,13 +64,16 @@ interface Propmpt {
 
 interface PromptState {
   prompts: Propmpt[];
-  fetchPrompts: () => Promise<void>;
   isLoading: boolean;
+  fetchPrompts: () => Promise<void>;
+  updatePropmpts: () => Promise<void>;
 }
 
 export const useGetAllProps = create<PromptState>()((set) => ({
   prompts: [],
   isLoading: false,
+
+  // ОТРИМАННЯ ВСІХ ПРОМПИІВ
   fetchPrompts: async () => {
     try {
       // 0. Починаємо завантаження
@@ -93,6 +96,24 @@ export const useGetAllProps = create<PromptState>()((set) => ({
       set({ prompts: data, isLoading: false });
 
       // 5. Зберігаємо в localstorage
+      localStorage.setItem("prompts", JSON.stringify(data));
+    } catch (error) {
+      console.error("Помилка завантаження промптів", error);
+      // Якщо помилка - також припиняємо завантаження
+      set({ isLoading: false });
+    }
+  },
+
+  // ПРИМУСОВЕ ОНОВЛЕННЯ
+  updatePropmpts: async () => {
+    try {
+      set({ isLoading: true });
+
+      const response = await fetch("/api/prompts");
+      const data = await response.json();
+
+      set({ prompts: data, isLoading: false });
+
       localStorage.setItem("prompts", JSON.stringify(data));
     } catch (error) {
       console.error("Помилка завантаження промптів", error);

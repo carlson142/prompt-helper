@@ -45,7 +45,6 @@ export const ExistingPrompts: React.FC<DataProps> = ({ data }) => {
           <div className="relative flex items-center justify-center">
             <div className="cursor-pointer group">
               {/* Іконка */}
-              {/* TODO: Додати копіювання промпту до буфіру обміну при кліку на іконку! */}
               <FaRegCopy
                 className="hover:text-[var(--primary-green)] transition-all"
                 onClick={(e) => {

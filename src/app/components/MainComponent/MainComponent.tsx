@@ -25,8 +25,6 @@ export default function MainComponent() {
       {/* Додати новий промпт */}
       <AddNewPrompt />
 
-      {/* FIXME: Додати loader, поки воно завантажує промпти з БД */}
-
       {prompts.map((el) => {
         return <ExistingPrompts key={el.id} data={el} />;
       })}

@@ -1,4 +1,5 @@
 import { NavigationCategoryName } from "./NavigationCategoryName";
+import { RefreshPrompts } from "./refreshPrompts";
 import ThemeSwitch from "./themeSwitch";
 import { temporaryCategories } from "@/app/helpers/data";
 
@@ -21,7 +22,10 @@ export default function Navigation() {
           })}
         </div>
       </div>
-      <ThemeSwitch />
+      <div className="flex">
+        <RefreshPrompts />
+        <ThemeSwitch />
+      </div>
     </div>
   );
 }
