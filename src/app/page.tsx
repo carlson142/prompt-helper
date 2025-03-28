@@ -1,5 +1,5 @@
 import Footer from "./components/Footer";
-import LeftSide from "./components/LeftSide";
+import LeftSide from "./components/LeftSide/LeftSide";
 import MainComponent from "./components/MainComponent/MainComponent";
 import { PromptPopup } from "./components/MainComponent/PromptPopup";
 
