@@ -17,7 +17,7 @@ export default function LeftSide() {
         />
       </div>
 
-      <div>
+      <div className="mt-3">
         {prompts.map((el) => {
           return (
             <PromptNameComponent key={el.id} title={el.title} id={el.id} />

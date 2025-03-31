@@ -4,7 +4,9 @@ type Props = {
 };
 
 export const PromptNameComponent: React.FC<Props> = (props) => {
-  console.log(props);
-
-  return <div>{props.title}</div>;
+  return (
+    <div className="cursor-pointer hover:bg-[var(--primary-fadeGreen)] p-3 transition-all rounded-2xl hover:translate-x-1">
+      {props.title}
+    </div>
+  );
 };
