@@ -1,7 +1,7 @@
 type BtnProps = {
   color: string;
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const CommonButton: React.FC<BtnProps> = ({ color, text, onClick }) => {

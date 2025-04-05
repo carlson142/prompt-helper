@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-spin-slow: rotate-slow 10s linear infinite;
+
+  @keyframes rotate-slow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 *::before,
 *::after {
   margin: 0;
