@@ -5,11 +5,9 @@ type BtnProps = {
 };
 
 export const CommonButton: React.FC<BtnProps> = ({ color, text, onClick }) => {
-  console.log(color);
-
   return (
     <button
-      className="w-full cursor-pointer rounded-2xl py-3 text-2xl hover:-translate-y-1 transition-all"
+      className="w-full py-3 text-2xl transition-all cursor-pointer rounded-2xl hover:-translate-y-1"
       style={{ backgroundColor: color }}
       onClick={onClick}
     >

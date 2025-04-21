@@ -1,14 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --animate-spin-slow: rotate-slow 10s linear infinite;
+  /* Анімація обертання + колір для лого АІ */
+  --animate-spin-fast: rotate-slow 3s linear infinite;
 
   @keyframes rotate-slow {
     0% {
       transform: rotate(0deg);
+      color: #ff0000;
+    }
+    16% {
+      color: #ff7f00;
+    }
+    33% {
+      color: #ffff00;
+    }
+    50% {
+      color: #00ff00;
+    }
+    66% {
+      color: #0000ff;
+    }
+    83% {
+      color: #4b0082;
     }
     100% {
       transform: rotate(360deg);
+      color: #4b0082;
     }
   }
 }
