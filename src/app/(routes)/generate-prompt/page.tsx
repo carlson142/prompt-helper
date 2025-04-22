@@ -3,6 +3,7 @@
 import { BackToHome } from "@/app/components/AddNewPromptPage/Buttons/BackToHome";
 import { BackToOneLevel } from "@/app/components/AddNewPromptPage/Buttons/BackToOneLevel";
 import { CommonButton } from "@/app/components/AddNewPromptPage/Buttons/CommonButton";
+import { fetchOptimizedPrompt } from "@/app/utils/openrouter";
 import { useState } from "react";
 
 import { TbBrandOpenai } from "react-icons/tb";
@@ -14,8 +15,9 @@ export default function Generate() {
   const [aiGeneratedPrompt, setAiGeneratedPrompt] = useState("");
   const [sillyPrompt, setSillyPrompt] = useState("");
 
-  const handleTest = () => {
-    console.log(sillyPrompt);
+  const handleTest = async () => {
+    const test = await fetchOptimizedPrompt(sillyPrompt);
+    console.log(test);
   };
 
   return (
