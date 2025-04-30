@@ -49,16 +49,19 @@ export default function Generate() {
               // defaultValue={"В тобі помер великий письменник..."}
               rows={10}
               onChange={(e) => setSillyPrompt(e.target.value)}
+              required
             ></textarea>
 
             {/* FIXME:При кліку на кнопку робити запит на АПІ */}
-            <div className="self-center w-48 mt-4">
-              <CommonButton
-                color="#2ed573"
-                text="Зроби це!"
-                onClick={handleTest}
-              />
-            </div>
+            {sillyPrompt.length > 0 ? (
+              <div className="self-center w-48 mt-4">
+                <CommonButton
+                  color="#2ed573"
+                  text="Тисни!"
+                  onClick={handleTest}
+                />
+              </div>
+            ) : null}
           </div>
         </div>
 

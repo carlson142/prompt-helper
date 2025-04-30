@@ -9,8 +9,6 @@ export async function fetchOptimizedPrompt(
     body: JSON.stringify({ prompt: rawUserPrompt }),
   });
 
-  console.log(response);
-
   if (!response.ok) {
     throw new Error("Failed to fetch optimized prompt");
   }

@@ -72,3 +72,19 @@ export const temporaryCategories = [
   { name: "Українською", active: false },
   { name: "English", active: false },
 ];
+
+export type StepT = {
+  name: string;
+  active: boolean;
+};
+
+export const steps: StepT[] = [
+  { name: "Крок 1: Роль (Role)", active: true },
+  { name: "Крок 2: Завдання (Task)", active: true },
+  { name: "Крок 3: Контекст (Context)", active: true },
+  { name: "Крок 4: Формат відповіді (Format)", active: true },
+  {
+    name: "Крок 5: Обмеження/Критерії успіху (Constraints/Success Criteria)",
+    active: true,
+  },
+];

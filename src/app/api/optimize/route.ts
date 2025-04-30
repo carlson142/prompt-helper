@@ -33,12 +33,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
 
     const data = await openRouterResponse.json();
+    const finalData = data.choices?.[0]?.message ?? "RED RED RED";
 
     {
       /* FIXME: витягнути з data тільки те, що потрібно, а потім повернути це, замість data */
     }
 
-    return NextResponse.json({ optimizedPrompt: data });
+    return NextResponse.json({ optimizedPrompt: finalData });
   } catch (error) {
     console.error("OpenRouter error: ", error);
     return NextResponse.json(

@@ -1,4 +1,5 @@
 import { BackToHome } from "@/app/components/AddNewPromptPage/Buttons/BackToHome";
+import { MultiStepForm } from "@/app/components/MultiStepForm/MultiStepForm";
 import React from "react";
 
 export default function CreatePrompt() {
@@ -7,7 +8,17 @@ export default function CreatePrompt() {
       <div className="self-center">
         <BackToHome />
       </div>
-      <h1>Create Prompt</h1>
+      {/* HEADING */}
+      <div className="self-center mt-4">
+        <p className="text-4xl font-bold bg-gradient-to-r from-[var(--main-heading-green)] to-[var(--main-heading-teal)] text-transparent bg-clip-text mb-1">
+          Оптимальний промпт за 5 кроків
+        </p>
+      </div>
+
+      {/* MULTI STEP FORM */}
+      <div className="self-center mt-4">
+        <MultiStepForm />
+      </div>
     </div>
   );
 }

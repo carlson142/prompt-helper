@@ -50,6 +50,27 @@ export const useNavigationCategories = create<NavigationCategoriesState>()(
 }
 
 {
+  /* STEPS in MultiStep Form */
+}
+
+interface FormStepState {
+  activeStep: string | null;
+  setActiveStep: (step: string) => void;
+}
+
+export const useStep = create<FormStepState>()((set) => ({
+  activeStep: "Крок 1: Роль (Role)",
+  setActiveStep: (step) => set({ activeStep: step }),
+}));
+
+{
+  /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+}
+{
+  /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+}
+
+{
   /* ЗБЕРІГАННЯ ВСІХ ПРОМПТІВ З БД */
 }
 
