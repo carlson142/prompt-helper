@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { DataTypes } from "../helpers/data";
 
 {
-  /* POPUP */
+  /* POPUP when click on existing prompt */
 }
 
 interface PopupState {
@@ -27,7 +27,7 @@ export const usePopupStore = create<PopupState>()((set) => ({
 }
 
 {
-  /* CATEGORIES */
+  /* CATEGORIES in Navigation */
 }
 
 interface NavigationCategoriesState {
@@ -59,7 +59,7 @@ interface FormStepState {
 }
 
 export const useStep = create<FormStepState>()((set) => ({
-  activeStep: "Крок 1: Роль (Role)",
+  activeStep: "Крок 1: Роль",
   setActiveStep: (step) => set({ activeStep: step }),
 }));
 

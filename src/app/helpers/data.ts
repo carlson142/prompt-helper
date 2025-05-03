@@ -73,18 +73,24 @@ export const temporaryCategories = [
   { name: "English", active: false },
 ];
 
+{
+  /* Кроки в MultiStepForm */
+}
+
 export type StepT = {
+  id: number;
   name: string;
   active: boolean;
 };
 
 export const steps: StepT[] = [
-  { name: "Крок 1: Роль (Role)", active: true },
-  { name: "Крок 2: Завдання (Task)", active: true },
-  { name: "Крок 3: Контекст (Context)", active: true },
-  { name: "Крок 4: Формат відповіді (Format)", active: true },
+  { name: "Крок 1: Роль", active: true, id: 1 },
+  { name: "Крок 2: Завдання", active: true, id: 2 },
+  { name: "Крок 3: Контекст", active: true, id: 3 },
+  { name: "Крок 4: Формат відповіді", active: true, id: 4 },
   {
-    name: "Крок 5: Обмеження/Критерії успіху (Constraints/Success Criteria)",
+    name: "Крок 5: Обмеження/Критерії успіху",
     active: true,
+    id: 5,
   },
 ];
