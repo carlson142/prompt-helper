@@ -8,13 +8,13 @@ export const StepName: React.FC<StepT> = ({ name }) => {
 
   return (
     <div
-      className={`cursor-pointer ${
+      className={`${
         activeStep === name ? "text-[var(--primary-green)]" : "text-white"
       }`}
-      // FIXME: прибрати це. переходити на наступний крок тільки тоді, коли всі поля поточного кроку заповнені
-      onClick={() => {
-        setActiveStep(name);
-      }}
+      // TODO: Відкоментуй, якщо потрібно для тестування
+      // onClick={() => {
+      //   setActiveStep(name);
+      // }}
     >
       {name}
     </div>

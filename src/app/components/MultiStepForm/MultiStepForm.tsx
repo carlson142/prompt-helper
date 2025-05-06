@@ -22,7 +22,6 @@ export const MultiStepForm = () => {
 
       {/* RIGHT SIDE */}
       <div className="flex-2/3">
-        {/* FIXME: контент відображається в залежності від поточного кроку */}
         <Form />
       </div>
     </div>

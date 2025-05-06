@@ -2,7 +2,10 @@
 
 import { useStep } from "@/app/store/store";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import {
+  MdOutlineKeyboardDoubleArrowRight,
+  MdOutlineKeyboardDoubleArrowLeft,
+} from "react-icons/md";
 
 export const Form = () => {
   {
@@ -16,18 +19,40 @@ export const Form = () => {
 
   type formData = {
     role: string;
+    task: string;
+    context: string;
+    answerFormat: string;
+    сonstraints: string;
   };
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<formData>();
 
-  const onSubmitStepOne: SubmitHandler<formData> = (data) => {
+  const handleOneStepBack = (step: string) => {
+    setActiveStep(step);
+  };
+
+  const onSubmitNextStep = (nextStep: string): SubmitHandler<formData> => {
+    return (data) => {
+      setActiveStep(nextStep);
+    };
+  };
+
+  const onSubmitStepOne = onSubmitNextStep("Крок 2: Завдання");
+  const onSubmitStepTwo = onSubmitNextStep("Крок 3: Контекст");
+  const onSubmitStepThree = onSubmitNextStep("Крок 4: Формат відповіді");
+  const onSubmitStepFour = onSubmitNextStep(
+    "Крок 5: Обмеження/Критерії успіху"
+  );
+
+  {
+    /* FIXME: редірект на фінальний згенерований за кроками промпт */
+  }
+  const onSubmitStepFive: SubmitHandler<formData> = (data) => {
     console.log(data);
-    setActiveStep("Крок 2: Завдання");
   };
 
   return (
@@ -66,19 +91,19 @@ export const Form = () => {
           >
             {errors.role && (
               <span className="text-[var(--flag-yellow)] font-bold ml-4 mb-1">
-                This field is required!
+                Це поле обов'язкове для заповнення!
               </span>
             )}
 
             <textarea
               {...register("role", { required: true })}
-              className=" bg-[var(--bg-color)] w-full h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
+              className="bg-[var(--bg-color)] resize-none w-full h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
               placeholder="Введи бажану роль для ChatGPT..."
             />
 
             <button
               type="submit"
-              className="flex items-center justify-center text-center mt-3 ml-auto cursor-pointer bg-gradient-to-r from-[var(--main-heading-green)] to-[var(--main-heading-teal)] p-2 rounded-xl"
+              className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 self-center cursor-pointer bg-[var(--flag-blue)] p-2 rounded-xl"
             >
               <span className="leading-none">НАСТУПНИЙ КРОК</span>
               <MdOutlineKeyboardDoubleArrowRight className="ml-2 text-2xl" />
@@ -88,17 +113,265 @@ export const Form = () => {
       )}
 
       {/* STEP 2 */}
-      {activeStep === "Крок 2: Завдання" && <span>Step 2</span>}
+      {activeStep === "Крок 2: Завдання" && (
+        <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
+          <h1 className="text-2xl font-bold text-center">
+            Крок 2: Завдання (Task)
+          </h1>
+
+          <div className="mt-3">
+            <span>
+              Чітко сформулюй, що саме потрібно зробити - опиши завдання або
+              проблему, наприклад:
+              <ul className="ml-8 italic list-disc">
+                <li>створи список порад для зручного мобільного інтерфейсу;</li>
+                <li>
+                  допоможи створити лендінг для веб-додатку, що зберігає промпти
+                  користувачів;
+                </li>
+                <li>
+                  опиши прості техніки зниження тривожності, які можна
+                  застосовувати щодня;
+                </li>
+                <li>
+                  склади базовий план бюджету для людини з нерегулярним доходом;
+                </li>
+              </ul>
+            </span>
+          </div>
+
+          <form
+            onSubmit={handleSubmit(onSubmitStepTwo)}
+            className="flex flex-col w-full mt-5 h-max"
+          >
+            {errors.task && (
+              <span className="text-[var(--flag-yellow)] font-bold ml-4 mb-1">
+                Це поле обов'язкове для заповнення!
+              </span>
+            )}
+
+            <textarea
+              {...register("task", { required: true })}
+              className=" bg-[var(--bg-color)] w-full resize-none h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
+              placeholder="Опиши завдання або проблему..."
+            />
+
+            <div className="flex justify-around">
+              <button
+                onClick={() => handleOneStepBack("Крок 1: Роль")}
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--secondary-red)] p-2 rounded-xl"
+              >
+                <MdOutlineKeyboardDoubleArrowLeft className="mr-2 text-2xl" />
+                <span className="leading-none"> ПОПЕРЕДНІЙ КРОК </span>
+              </button>
+
+              <button
+                type="submit"
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--flag-blue)] p-2 rounded-xl"
+              >
+                <span className="leading-none">НАСТУПНИЙ КРОК</span>
+                <MdOutlineKeyboardDoubleArrowRight className="ml-2 text-2xl" />
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* STEP 3 */}
-      {activeStep === "Крок 3: Контекст" && <span>Step 3</span>}
+      {activeStep === "Крок 3: Контекст" && (
+        <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
+          <h1 className="text-2xl font-bold text-center">
+            Крок 3: Контекст (Context)
+          </h1>
+
+          <div className="mt-3">
+            <span>
+              Надай фон чи дані, необхідні для виконання - будь-яка додаткова
+              інформація, яка допоможе краще зрозуміти ситуацію, наприклад:
+              <ul className="ml-8 italic list-disc">
+                <li>враховуй, що це додаток для людей 60+ років;</li>
+                <li>
+                  враховуй, що матеріал призначений для школярів 5–6 класу без
+                  попереднього досвіду програмування;
+                </li>
+                <li>
+                  враховуй, що цю презентацію побачить інвестор, який не
+                  знайомий з ІТ-сферою;
+                </li>
+                <li>
+                  враховуй, що гру буде проходити гравець вперше, без
+                  попереднього туторіалу;
+                </li>
+              </ul>
+            </span>
+          </div>
+
+          <form
+            onSubmit={handleSubmit(onSubmitStepThree)}
+            className="flex flex-col w-full mt-5 h-max"
+          >
+            {errors.context && (
+              <span className="text-[var(--flag-yellow)] font-bold ml-4 mb-1">
+                Це поле обов'язкове для заповнення!
+              </span>
+            )}
+
+            <textarea
+              {...register("context", { required: true })}
+              className=" bg-[var(--bg-color)] w-full resize-none h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
+              placeholder="Надай будь-яку додаткову інформацію..."
+            />
+
+            <div className="flex justify-around">
+              <button
+                onClick={() => handleOneStepBack("Крок 2: Завдання")}
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--secondary-red)] p-2 rounded-xl"
+              >
+                <MdOutlineKeyboardDoubleArrowLeft className="mr-2 text-2xl" />
+                <span className="leading-none"> ПОПЕРЕДНІЙ КРОК </span>
+              </button>
+
+              <button
+                type="submit"
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--flag-blue)] p-2 rounded-xl"
+              >
+                <span className="leading-none">НАСТУПНИЙ КРОК</span>
+                <MdOutlineKeyboardDoubleArrowRight className="ml-2 text-2xl" />
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* STEP 4 */}
-      {activeStep === "Крок 4: Формат відповіді" && <span>Step 4</span>}
+      {activeStep === "Крок 4: Формат відповіді" && (
+        <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
+          <h1 className="text-2xl font-bold text-center">
+            Крок 4: Формат відповіді (Format)
+          </h1>
+
+          <div className="mt-3">
+            <span>
+              Задай, як має виглядати відповідь — вкажи бажану структуру —
+              список, таблиця, абзац, markdown, код тощо:
+              <ul className="ml-8 italic list-disc">
+                <li>оформи як нумерований список з короткими описами;</li>
+                <li>
+                  дай структуру сторінки у вигляді HTML-розмітки з короткими
+                  коментарями;
+                </li>
+                <li>
+                  виведи результат у форматі JSON для подальшого використання в
+                  коді;
+                </li>
+                <li>
+                  оформи відповідь у вигляді структурованого тексту з
+                  підзаголовками для кожного пункту;
+                </li>
+              </ul>
+            </span>
+          </div>
+
+          <form
+            onSubmit={handleSubmit(onSubmitStepFour)}
+            className="flex flex-col w-full mt-5 h-max"
+          >
+            {errors.answerFormat && (
+              <span className="text-[var(--flag-yellow)] font-bold ml-4 mb-1">
+                Це поле обов'язкове для заповнення!
+              </span>
+            )}
+
+            <textarea
+              {...register("answerFormat", { required: true })}
+              className=" bg-[var(--bg-color)] w-full resize-none h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
+              placeholder="Задай структуру відповіді..."
+            />
+
+            <div className="flex justify-around">
+              <button
+                onClick={() => handleOneStepBack("Крок 3: Контекст")}
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--secondary-red)] p-2 rounded-xl"
+              >
+                <MdOutlineKeyboardDoubleArrowLeft className="mr-2 text-2xl" />
+                <span className="leading-none"> ПОПЕРЕДНІЙ КРОК </span>
+              </button>
+
+              <button
+                type="submit"
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--flag-blue)] p-2 rounded-xl"
+              >
+                <span className="leading-none">НАСТУПНИЙ КРОК</span>
+                <MdOutlineKeyboardDoubleArrowRight className="ml-2 text-2xl" />
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* STEP 5 */}
       {activeStep === "Крок 5: Обмеження/Критерії успіху" && (
-        <span>Step 5</span>
+        <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
+          <h1 className="text-2xl font-bold text-center">
+            Крок 5: Обмеження/Критерії успіху (Constraints/Success Criteria)
+          </h1>
+
+          <div className="mt-3">
+            <span>
+              Уточни, що важливо або чого не слід робити - чого уникати, на що
+              звертати особливу увагу, бажані/небажані фрази або дії:
+              <ul className="ml-8 italic list-disc">
+                <li>не використовуй складні терміни, будь лаконічним;</li>
+                <li>
+                  не використовуй складні анімації, дизайн має бути адаптивним і
+                  мінімалістичним;
+                </li>
+                <li>
+                  відповідь має поміщатися в одному абзаці, який можна прочитати
+                  за 30 секунд;
+                </li>
+                <li>
+                  Не використовуй абстрактні поняття — лише конкретні приклади
+                  та дії;
+                </li>
+              </ul>
+            </span>
+          </div>
+
+          <form
+            onSubmit={handleSubmit(onSubmitStepFive)}
+            className="flex flex-col w-full mt-5 h-max"
+          >
+            {errors.сonstraints && (
+              <span className="text-[var(--flag-yellow)] font-bold ml-4 mb-1">
+                Це поле обов'язкове для заповнення!
+              </span>
+            )}
+
+            <textarea
+              {...register("сonstraints", { required: true })}
+              className=" bg-[var(--bg-color)] w-full resize-none h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
+              placeholder="Задай структуру відповіді..."
+            />
+
+            <div className="flex justify-around">
+              <button
+                onClick={() => handleOneStepBack("Крок 4: Формат відповіді")}
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--secondary-red)] p-2 rounded-xl"
+              >
+                <MdOutlineKeyboardDoubleArrowLeft className="mr-2 text-2xl" />
+                <span className="leading-none"> ПОПЕРЕДНІЙ КРОК </span>
+              </button>
+
+              <button
+                type="submit"
+                className="flex hover:scale-105 transition-transform duration-300 items-center justify-center text-center mt-3 cursor-pointer bg-[var(--primary-green)] p-2 rounded-xl"
+              >
+                <span className="leading-none">ЗГЕНЕРУВАТИ ПРОМПТ</span>
+              </button>
+            </div>
+          </form>
+        </div>
       )}
     </div>
   );
