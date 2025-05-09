@@ -1,41 +1,41 @@
 "use client";
 
-import { useStep } from "@/app/store/store";
+import { useMultiStepFormData, useStep } from "@/app/store/store";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   MdOutlineKeyboardDoubleArrowRight,
   MdOutlineKeyboardDoubleArrowLeft,
 } from "react-icons/md";
+import { FormData } from "@/app/helpers/data";
+import { fetchCreatedPrompt } from "@/app/utils/openrouter";
+import { useState } from "react";
 
 export const Form = () => {
+  {
+    /* TEST */
+  }
+
+  const [test, setTest] = useState<string>();
+
   {
     /* Для визначення, який поточний крок */
   }
   const { activeStep, setActiveStep } = useStep();
+  const { setMultiFormData, dataForPrompt } = useMultiStepFormData();
 
-  {
-    /* Робота з React Hook Form */
-  }
-
-  type formData = {
-    role: string;
-    task: string;
-    context: string;
-    answerFormat: string;
-    сonstraints: string;
-  };
-
+  // prettier-ignore
+  {/* FormData - беремо з "src\app\helpers\data.ts" */}
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<formData>();
+  } = useForm<FormData>();
 
   const handleOneStepBack = (step: string) => {
     setActiveStep(step);
   };
 
-  const onSubmitNextStep = (nextStep: string): SubmitHandler<formData> => {
+  const onSubmitNextStep = (nextStep: string): SubmitHandler<FormData> => {
     return (data) => {
       setActiveStep(nextStep);
     };
@@ -47,12 +47,15 @@ export const Form = () => {
   const onSubmitStepFour = onSubmitNextStep(
     "Крок 5: Обмеження/Критерії успіху"
   );
+  const onSubmitFinalStep: SubmitHandler<FormData> = async (data) => {
+    setMultiFormData(data);
+    setActiveStep("Крок 6: Результат");
 
-  {
-    /* FIXME: редірект на фінальний згенерований за кроками промпт */
-  }
-  const onSubmitStepFive: SubmitHandler<formData> = (data) => {
-    console.log(data);
+    // TODO: сформувати промпт
+
+    const test = await fetchCreatedPrompt(data);
+    console.log(test);
+    setTest(test);
   };
 
   return (
@@ -111,7 +114,6 @@ export const Form = () => {
           </form>
         </div>
       )}
-
       {/* STEP 2 */}
       {activeStep === "Крок 2: Завдання" && (
         <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
@@ -176,7 +178,6 @@ export const Form = () => {
           </form>
         </div>
       )}
-
       {/* STEP 3 */}
       {activeStep === "Крок 3: Контекст" && (
         <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
@@ -242,7 +243,6 @@ export const Form = () => {
           </form>
         </div>
       )}
-
       {/* STEP 4 */}
       {activeStep === "Крок 4: Формат відповіді" && (
         <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
@@ -308,7 +308,6 @@ export const Form = () => {
           </form>
         </div>
       )}
-
       {/* STEP 5 */}
       {activeStep === "Крок 5: Обмеження/Критерії успіху" && (
         <div className="flex flex-col justify-around w-full h-full p-4 pr-0">
@@ -339,17 +338,17 @@ export const Form = () => {
           </div>
 
           <form
-            onSubmit={handleSubmit(onSubmitStepFive)}
+            onSubmit={handleSubmit(onSubmitFinalStep)}
             className="flex flex-col w-full mt-5 h-max"
           >
-            {errors.сonstraints && (
+            {errors.constraints && (
               <span className="text-[var(--flag-yellow)] font-bold ml-4 mb-1">
                 Це поле обов'язкове для заповнення!
               </span>
             )}
 
             <textarea
-              {...register("сonstraints", { required: true })}
+              {...register("constraints", { required: true })}
               className=" bg-[var(--bg-color)] w-full resize-none h-20 rounded-2xl border-2 border-[var(--main-heading-teal)] p-2 focus:border-[var(--main-heading-green)] focus:outline-none"
               placeholder="Задай структуру відповіді..."
             />
@@ -373,6 +372,9 @@ export const Form = () => {
           </form>
         </div>
       )}
+      {/* STEP 6 */}
+      {/* TODO: ДОРОБИТИ */}
+      {activeStep === "Крок 6: Результат" && <div>{dataForPrompt?.role}</div>}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAllProps } from "@/app/store/store";
+import { useGetAllProps, useMultiStepFormData } from "@/app/store/store";
 import { PromptNameComponent } from "./PromptNameComponent";
 
 export default function LeftSide() {

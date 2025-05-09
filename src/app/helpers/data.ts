@@ -78,19 +78,27 @@ export const temporaryCategories = [
 }
 
 export type StepT = {
-  id: number;
   name: string;
-  active: boolean;
 };
 
 export const steps: StepT[] = [
-  { name: "Крок 1: Роль", active: true, id: 1 },
-  { name: "Крок 2: Завдання", active: true, id: 2 },
-  { name: "Крок 3: Контекст", active: true, id: 3 },
-  { name: "Крок 4: Формат відповіді", active: true, id: 4 },
+  { name: "Крок 1: Роль" },
+  { name: "Крок 2: Завдання" },
+  { name: "Крок 3: Контекст" },
+  { name: "Крок 4: Формат відповіді" },
   {
     name: "Крок 5: Обмеження/Критерії успіху",
-    active: true,
-    id: 5,
   },
+  { name: "Крок 6: Результат" },
 ];
+
+// prettier-ignore
+{ /* DATA FOR REACT HOOK FORM */ }
+
+export type FormData = {
+  role: string;
+  task: string;
+  context: string;
+  answerFormat: string;
+  constraints: string;
+};
